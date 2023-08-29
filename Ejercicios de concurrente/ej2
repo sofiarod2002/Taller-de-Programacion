@@ -1,0 +1,39 @@
+programa ej2
+procesos   
+  proceso juntarPapeles (ES papeles)
+  comenzar
+    repetir 8
+      mientras (HayPapelEnLaEsquina) 
+        tomarPapel
+        papeles = papeles + 1
+      mover
+  fin
+areas
+  area1:AreaP(1,1,1,100)
+  area2: AreaP(2,1,2,100)
+  area3: AreaP(3,1,3,100)
+robots
+  robot robotRecorrer (cant, papeles)
+  comenzar
+	BloquearEsquina (10, PosCa + 1)
+	repetir cant
+		derecha
+	mientras (HayPapelEnLaEsquina) 
+		tomarPapel
+		papeles = papeles + 1
+	mover
+	DesbloquaerEsquina (10, PosCa - 1)
+	juntarPapeles (papeles)
+	Informar (papeles)
+	
+  fin
+variables
+  R1,R2,R3: robotRecorrer
+comenzar
+  AsignarArea (R1,area1)
+  AsignarArea (R2,area2)
+  AsignarArea (R3,area3)
+  Iniciar(R1,10,10)
+  Iniciar(R2,2,1)
+  Iniciar(R3,3,1)
+fin 

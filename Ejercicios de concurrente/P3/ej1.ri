@@ -1,0 +1,89 @@
+programa ej2
+procesos   
+  proceso juntarPapeles 
+  comenzar
+    mientras (HayPapelEnLaEsquina) 
+      tomarPapel
+  fin
+  proceso juntarFlores 
+  comenzar
+    mientras (HayFlorEnLaEsquina) 
+      tomarFlor
+  fin
+areas
+  area1:AreaPC(1,1,5,10)
+  area2: AreaPC(6,1,10,9)
+  esqC: AreaC(10,10,10,10)
+  
+  esq1: AreaP(6,10,6,10)
+  esq2: AreaP(7,10,7,10)
+  esq3: AreaP(8,10,8,10)
+  esq4: AreaP(9,10,9,10)
+  
+robots
+  robot robotFlorero 
+  variables
+    ca,av,x,y: numero 
+  comenzar
+    ca := PosCa
+    av := PosAv
+    repetir 5 
+      Random (x,1,5)
+      Random (y,1,10)
+      BloquearEsquina (x,y)
+      Pos (x,y)
+      juntarFlores
+      Pos (av,ca)
+      LiberarEsquina (x,y)
+    mientras (HayFlorEnLaBolsa)
+      BloquearEsquina (10,10)
+      Pos (10,10)
+      depositarFlor
+      Pos (av,ca)
+      LiberarEsquina (10,10)
+  fin
+  robot robotPapelero 
+  variables
+    ca,av,x,y : numero
+  comenzar
+    ca := PosCa
+    av := PosAv
+    repetir 3 
+      Random (x,6,10)
+      Random (y,1,9)
+      BloquearEsquina (x,y)
+      Pos (x,y)
+      juntarPapeles
+      Pos (av,ca)
+      LiberarEsquina (x,y)
+    mientras (HayPapelEnLaBolsa)
+      BloquearEsquina (10,10)
+      Pos (10,10)
+      depositarPapel
+      Pos (av,ca)
+      LiberarEsquina (10,10)
+  fin
+variables
+  R1,R2: robotFlorero
+  R3,R4: robotPapelero
+comenzar
+  AsignarArea (R1,area1)
+  AsignarArea (R2,area1)
+  AsignarArea (R3,area2)
+  AsignarArea (R4,area2)
+  {------Esquina compartida------ }
+  AsignarArea (R1,esqC)
+  AsignarArea (R2,esqC)
+  AsignarArea (R3,esqC)
+  AsignarArea (R4,esqC)
+ {------Esquinas privadas------ }
+  AsignarArea (R1,esq1)
+  AsignarArea (R2,esq2)
+  AsignarArea (R3,esq3)
+  AsignarArea (R4,esq4)
+  Iniciar (R1,6,10)
+  Iniciar (R2,7,10) 
+  Iniciar (R3,8,10) 
+  Iniciar (R4,9,10) 
+fin 
+
